@@ -22,24 +22,19 @@ func main(){
 	userRepository := user.NewRepository(db)
 	userService := user.NewServices(userRepository)
 	userHandler := handler.NewUserHandler(userService)
+	
 
 
 	mahasiswaRepository := mahasiswa.NewRepository(db)
 	mahasiswaService := mahasiswa.NewServices(mahasiswaRepository)
 	mahasiswaHandler := handler.NewMahasiswaHandler(mahasiswaService)
 
-
-
 	router := gin.Default()
 
 	api := router.Group("/api/v1")
 
 	api.POST("/users" , userHandler.RegisterUser)
+	api.POST("/sessions" , userHandler.LoginUser)
 	api.POST("/mahasiswa" , mahasiswaHandler.Register)
 	router.Run()
-	//input dari user
-	//handler : mapping input dari user -> struct input
-	//services : melakukan mapping dari struct input ke struct
-	//repository
-	//db
 }
